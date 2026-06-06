@@ -54,7 +54,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: game-r36s
-          path: target/aarch64-unknown-linux-gnu/release/<nombre_de_tu_binario>
+          path: target/aarch64-unknown-linux-gnu/release/retro-game
 
     strategy:
       matrix:
