@@ -4,3 +4,4 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+sola-raylib = { version = "6.2.0", features = ["sdl", "opengl_es_20"] }
