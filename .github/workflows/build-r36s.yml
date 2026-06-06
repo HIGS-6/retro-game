@@ -26,6 +26,8 @@ jobs:
             gcc-aarch64-linux-gnu g++-aarch64-linux-gnu cmake \
             libsdl2-dev:arm64 \
             libgles2-mesa-dev:arm64 \
+            libsdl2-dev:arm64 \
+            libsdl2-2.0-0:arm64 \
             libegl1-mesa-dev:arm64 \
             libdrm-dev:arm64 \
             libgbm-dev:arm64
@@ -33,6 +35,11 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
         with:
           targets: aarch64-unknown-linux-gnu
+
+      - name: Debug SDL2
+        run: |
+          find /usr -name "SDL2Config.cmake" 2>/dev/null || echo "NO ENCONTRADO"
+          find /usr -name "sdl2-config.cmake" 2>/dev/null || echo "NO ENCONTRADO"
 
       - name: .cargo/config.toml
         run: |
@@ -53,7 +60,8 @@ jobs:
           PKG_CONFIG_PATH: "/usr/lib/aarch64-linux-gnu/pkgconfig"
           CC_aarch64_unknown_linux_gnu: "aarch64-linux-gnu-gcc"
           CXX_aarch64_unknown_linux_gnu: "aarch64-linux-gnu-g++"
-          CMAKE_PREFIX_PATH_aarch64_unknown_linux_gnu: "/usr/lib/aarch64-linux-gnu" # ← esto
+          CMAKE_PREFIX_PATH_aarch64_unknown_linux_gnu: "/usr/lib/aarch64-linux-gnu"
+          SDL2_DIR: "/usr/lib/aarch64-linux-gnu/cmake/SDL2" # ← nuevo
         run: |
           cargo zigbuild \
             --target aarch64-unknown-linux-gnu.2.31 \
